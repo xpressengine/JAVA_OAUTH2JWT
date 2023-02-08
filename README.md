@@ -1,1 +1,1 @@
-# JAVA로 OAuth JWT 서버 구현
+# JAVA로 OAuth2 JWT 서버 구현
