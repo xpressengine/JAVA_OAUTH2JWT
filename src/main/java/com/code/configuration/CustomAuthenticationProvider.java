@@ -30,12 +30,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = (String) authentication.getPrincipal();
         String password = (String) authentication.getCredentials();
-        UserDetails info = userDetailService.loadUserByUsername(username);
-        log.error("## => {} | {} | {}", username, password, info.getAuthorities());
+        UserDetails info = userDetailService.loadUserByUsername(username); // db에서 가져온 user 정보
         if(ObjectUtils.isEmpty(info)){
+            log.warn("## => {} | {} | {}", username, password, info);
             throw new UsernameNotFoundException("user not found");
         }
         if(!StringUtils.equals(password, StringUtils.replace(info.getPassword(), "{noop}",""))){
+            log.warn("## => {} | {} | {}", username, password, info.getAuthorities());
             throw new UsernameNotFoundException("please password check");
         }
         // principal 정보는 jwt 토큰 생성시 추가정보 넣는데 사용하오니 필요한 정보는 여기서 넣어주세요.

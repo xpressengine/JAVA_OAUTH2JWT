@@ -13,6 +13,8 @@ import java.util.Map;
 // custom jwt token add info
 @Slf4j
 public class CustomTokenEnhancer implements TokenEnhancer {
+
+    //토큰에 사용자 정보를 추가로 넣기 위해 Enhancer 클래스를 생성하며, corin_id 와 corin_nick_name 이라는 정보를 추가한다.
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         User user = (User) authentication.getPrincipal();

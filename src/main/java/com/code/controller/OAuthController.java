@@ -30,6 +30,9 @@ public class OAuthController {
                 .header("Authorization","Basic "+encodingCredentials)
                 .fields(request.getMapData())
                 .asObject(OauthToken.response.class).getBody();
+System.out.println("@OAuthController_encodingCredentials = " + encodingCredentials);
+System.out.println("@OAuthController_request.getMapData() = " + request.getMapData());
+System.out.println("@OAuthController_OauthToken.response.class = " + OauthToken.response.class);
         return oauthToken;
     }
 

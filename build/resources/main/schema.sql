@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `oauth_client_details`
 );
 
 -- 권한 관리 테이블
-CREATE TABLE IF NOT EXISTS `oauth_approvals`
+create table oauth_approvals
 (
     userId         VARCHAR(256),
     clientId       VARCHAR(256),

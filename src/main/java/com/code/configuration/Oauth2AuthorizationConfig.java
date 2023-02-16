@@ -44,7 +44,7 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
                 .allowFormAuthenticationForClients();
     }
 
-    // client 설정
+    // client 설정 DB 저장
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.jdbc(dataSource);
@@ -59,6 +59,7 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     // 권한 동의 DB 저장
     @Bean
     public ApprovalStore approvalStore() {
+System.out.println("$$Oauth2AuthorizationConfig_dataSource = " + dataSource); // dataSource가 user 정보를 담고있는듯
         return new JdbcApprovalStore(dataSource);
     }
 
@@ -72,7 +73,7 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
                 //.tokenStore(tokenStore()) // jwt 로 변경시 토큰 저장하지 않아도 리소스 서버에서 차제적으로 체크 가능
                 .tokenEnhancer(tokenEnhancerChain)
                 .accessTokenConverter(jwtAccessTokenConverter())
-                .approvalStore(approvalStore());
+                .approvalStore(approvalStore()); // 권한 동의 설정
     }
 
     @Bean
@@ -85,7 +86,7 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
         // 대칭키 암호화 : key 값은 리소스 서버에도 넣고 하면 됨.
          /*JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setSigningKey("key");*/
-
+System.out.println("$$Oauth2AuthorizationConfig_converter =" + converter);
         return converter;
     }
 
